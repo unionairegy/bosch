@@ -17,7 +17,7 @@
 *{margin:0;padding:0;box-sizing:border-box}
 html{scroll-behavior:smooth}
 body{font-family:"Cairo",sans-serif;background:#f6faff;color:#13233c;line-height:1.8}
-a{text-decoration:none} img{width:100%;display:block}
+a{text-decoration:none} img{width:100%;height:100%;display:block;object-fit:cover}
 .container{width:92%;max-width:1180px;margin:auto}
 .top-bar{background:#052e6c;color:#fff;text-align:center;padding:7px 10px;font-size:14px;font-weight:700}
 header{background:rgba(255,255,255,.97);border-bottom:1px solid #dce8f4;position:sticky;top:0;z-index:9999;box-shadow:0 5px 20px rgba(0,40,90,.05)}
@@ -34,8 +34,7 @@ header{background:rgba(255,255,255,.97);border-bottom:1px solid #dce8f4;position
 .btn{display:inline-flex;justify-content:center;align-items:center;gap:8px;padding:12px 22px;border-radius:30px;font-weight:800}
 .btn-main{color:#fff;background:#073f92}
 .btn-whatsapp{color:#073f92;background:#fff;border:1px solid #bad4eb}
-.hero-image{border-radius:30px;overflow:hidden;box-shadow:0 25px 60px rgba(7,63,146,.16)}
-.hero-image img{aspect-ratio:4/3;object-fit:cover}
+.hero-image{border-radius:30px;overflow:hidden;box-shadow:0 25px 60px rgba(7,63,146,.16);background:#eaf2fb;aspect-ratio:4/3}
 section{padding:65px 0}
 .section-title{max-width:850px;text-align:center;margin:0 auto 35px}
 .section-title h2{font-size:clamp(30px,4vw,40px);color:#0b2344}
@@ -45,15 +44,13 @@ section{padding:65px 0}
 .service-icon{width:52px;height:52px;display:grid;place-items:center;background:#e6f3ff;color:#073f92;border-radius:15px;font-size:22px;margin-bottom:15px}
 .service-card h3{font-size:19px;margin-bottom:7px} .service-card p{color:#68768a;font-size:14px}
 .split{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center}
-.split-image{border-radius:26px;overflow:hidden;box-shadow:0 20px 45px rgba(7,63,146,.14)}
-.split-image img{aspect-ratio:4/3;object-fit:cover}
+.split-image{border-radius:26px;overflow:hidden;box-shadow:0 20px 45px rgba(7,63,146,.14);background:#eaf2fb;aspect-ratio:4/3}
 .split h2{font-size:38px;line-height:1.35;margin:15px 0} .split p{color:#66758a}
 .check-list{display:grid;gap:11px;margin-top:20px} .check{padding:13px 15px;background:#fff;border:1px solid #dce8f4;border-radius:13px}
 .faults{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
 .fault{background:#fff;border:1px solid #dce8f4;padding:16px 18px;border-radius:15px;font-weight:700}
 .gallery{display:grid;grid-template-columns:repeat(12,1fr);gap:14px}
-.gallery-box{overflow:hidden;border-radius:20px;box-shadow:0 15px 38px rgba(7,63,146,.13)}
-.gallery-box img{width:100%;height:100%;object-fit:cover}
+.gallery-box{overflow:hidden;border-radius:20px;box-shadow:0 15px 38px rgba(7,63,146,.13);background:#eaf2fb}
 .g1{grid-column:span 7;height:380px} .g2{grid-column:span 5;height:380px}
 .g3,.g4,.g5{grid-column:span 4;height:280px}
 .contact-grid{display:grid;grid-template-columns:.9fr 1.1fr;gap:25px}
@@ -134,7 +131,7 @@ footer{padding:35px 0;text-align:center;color:#d9e6f5;background:#052e6c} footer
 
 <section>
 <div class="container split">
-<div class="split-image"><img src="https://images.unsplash.com/photo-1571175336557-48bba3270c5f?auto=format&fit=crop&w=800&q=80" alt="ثلاجات وغسالات بوش"></div>
+<div class="split-image"><img src="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=800&q=80" alt="ثلاجات وغسالات بوش"></div>
 <div>
 <span class="badge">تشخيص دقيق واحترافي</span>
 <h2>خدمة صيانة فورية ومنزلية متخصصة لخط أجهزة بوش</h2>
@@ -171,7 +168,7 @@ footer{padding:35px 0;text-align:center;color:#d9e6f5;background:#052e6c} footer
 <div class="gallery-box g1"><img src="https://images.unsplash.com/photo-1584854580396-981f9b128522?auto=format&fit=crop&w=800&q=80" alt="صيانة ثلاجات بوش"></div>
 <div class="gallery-box g2"><img src="https://images.unsplash.com/photo-1626806787461-102c1bfaaea1?auto=format&fit=crop&w=800&q=80" alt="صيانة غسالات بوش"></div>
 <div class="gallery-box g3"><img src="https://images.unsplash.com/photo-1556911220-e15b29be8c8f?auto=format&fit=crop&w=800&q=80" alt="أجهزة المطبخ بوش"></div>
-<div class="gallery-box g4"><img src="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=800&q=80" alt="أجهزة منزلية بوش"></div>
+<div class="gallery-box g4"><img src="https://images.unsplash.com/photo-1571175336557-48bba3270c5f?auto=format&fit=crop&w=800&q=80" alt="أجهزة منزلية بوش"></div>
 <div class="gallery-box g5"><img src="https://images.unsplash.com/photo-1574269909862-7e1d70bb8078?auto=format&fit=crop&w=800&q=80" alt="مركز صيانة بوش"></div>
 </div>
 </div>
