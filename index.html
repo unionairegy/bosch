@@ -17,7 +17,7 @@
 *{margin:0;padding:0;box-sizing:border-box}
 html{scroll-behavior:smooth}
 body{font-family:"Cairo",sans-serif;background:#f6faff;color:#13233c;line-height:1.8}
-a{text-decoration:none} img{width:100%;height:100%;display:block;object-fit:cover}
+a{text-decoration:none}
 .container{width:92%;max-width:1180px;margin:auto}
 .top-bar{background:#052e6c;color:#fff;text-align:center;padding:7px 10px;font-size:14px;font-weight:700}
 header{background:rgba(255,255,255,.97);border-bottom:1px solid #dce8f4;position:sticky;top:0;z-index:9999;box-shadow:0 5px 20px rgba(0,40,90,.05)}
@@ -28,13 +28,16 @@ header{background:rgba(255,255,255,.97);border-bottom:1px solid #dce8f4;position
 .hero{padding:65px 0 45px;background:radial-gradient(circle at top right,#e4f3ff,transparent 40%),#f8fcff}
 .hero-grid{display:grid;grid-template-columns:1fr 1fr;align-items:center;gap:45px}
 .badge{display:inline-block;background:#ddebff;color:#073f92;padding:6px 14px;border-radius:30px;font-size:14px;font-weight:800}
-.hero h1{font-size:clamp(40px,6vw,66px);line-height:1.18;margin:18px 0;color:#0b2344}
+.hero h1{font-size:clamp(36px,5vw,58px);line-height:1.2;margin:18px 0;color:#0b2344}
 .hero p{color:#617087;font-size:18px}
 .hero-buttons{display:flex;gap:12px;flex-wrap:wrap;margin-top:25px}
 .btn{display:inline-flex;justify-content:center;align-items:center;gap:8px;padding:12px 22px;border-radius:30px;font-weight:800}
 .btn-main{color:#fff;background:#073f92}
 .btn-whatsapp{color:#073f92;background:#fff;border:1px solid #bad4eb}
-.hero-image{border-radius:30px;overflow:hidden;box-shadow:0 25px 60px rgba(7,63,146,.16);background:#eaf2fb;aspect-ratio:4/3}
+.hero-visual{border-radius:30px;background:linear-gradient(135deg, #052e6c, #0c66c7);color:white;padding:50px 30px;text-align:center;box-shadow:0 20px 45px rgba(7,63,146,.16)}
+.hero-visual i{font-size:70px;margin-bottom:20px;color:#fff;}
+.hero-visual h3{font-size:24px;font-weight:800;margin-bottom:10px;}
+.hero-visual p{color:#d9e6f5;font-size:15px;}
 section{padding:65px 0}
 .section-title{max-width:850px;text-align:center;margin:0 auto 35px}
 .section-title h2{font-size:clamp(30px,4vw,40px);color:#0b2344}
@@ -44,15 +47,17 @@ section{padding:65px 0}
 .service-icon{width:52px;height:52px;display:grid;place-items:center;background:#e6f3ff;color:#073f92;border-radius:15px;font-size:22px;margin-bottom:15px}
 .service-card h3{font-size:19px;margin-bottom:7px} .service-card p{color:#68768a;font-size:14px}
 .split{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center}
-.split-image{border-radius:26px;overflow:hidden;box-shadow:0 20px 45px rgba(7,63,146,.14);background:#eaf2fb;aspect-ratio:4/3}
+.split-visual{border-radius:26px;background:linear-gradient(135deg, #073f92, #0c66c7);color:white;padding:45px 30px;text-align:center;box-shadow:0 15px 35px rgba(7,63,146,.14)}
+.split-visual i{font-size:60px;margin-bottom:15px;color:#fff;}
 .split h2{font-size:38px;line-height:1.35;margin:15px 0} .split p{color:#66758a}
 .check-list{display:grid;gap:11px;margin-top:20px} .check{padding:13px 15px;background:#fff;border:1px solid #dce8f4;border-radius:13px}
 .faults{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
 .fault{background:#fff;border:1px solid #dce8f4;padding:16px 18px;border-radius:15px;font-weight:700}
-.gallery{display:grid;grid-template-columns:repeat(12,1fr);gap:14px}
-.gallery-box{overflow:hidden;border-radius:20px;box-shadow:0 15px 38px rgba(7,63,146,.13);background:#eaf2fb}
-.g1{grid-column:span 7;height:380px} .g2{grid-column:span 5;height:380px}
-.g3,.g4,.g5{grid-column:span 4;height:280px}
+.features-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.feature-box{background:#fff;border:1px solid #dce8f4;border-radius:20px;padding:25px;text-align:center;box-shadow:0 10px 30px rgba(15,60,100,.05)}
+.feature-box i{font-size:40px;color:#073f92;margin-bottom:15px}
+.feature-box h3{font-size:18px;margin-bottom:8px}
+.feature-box p{color:#68768a;font-size:14px}
 .contact-grid{display:grid;grid-template-columns:.9fr 1.1fr;gap:25px}
 .contact-box{background:linear-gradient(145deg,#052e6c,#0c66c7);color:#fff;border-radius:28px;padding:35px}
 .contact-box h2{font-size:36px;margin:13px 0}
@@ -64,7 +69,7 @@ details{max-width:900px;margin:12px auto;background:#fff;border:1px solid #dce8f
 summary{cursor:pointer;font-weight:800} details p{color:#66758a;margin-top:8px}
 footer{padding:35px 0;text-align:center;color:#d9e6f5;background:#052e6c} footer strong{color:#fff;font-size:20px}
 .floating-call{position:fixed;bottom:20px;left:20px;z-index:9999;background:#073f92;color:#fff;width:62px;height:62px;border-radius:50%;display:grid;place-items:center;font-size:25px;box-shadow:0 10px 30px rgba(0,0,0,.25)}
-@media(max-width:900px){.hero-grid,.split,.contact-grid{grid-template-columns:1fr}.services{grid-template-columns:repeat(2,1fr)}.menu{display:none}.g1,.g2,.g3,.g4,.g5{grid-column:span 12;height:300px}}
+@media(max-width:900px){.hero-grid,.split,.contact-grid,.features-grid{grid-template-columns:1fr}.services{grid-template-columns:repeat(2,1fr)}.menu{display:none}}
 @media(max-width:550px){.services,.faults{grid-template-columns:1fr}.call-header{font-size:12px;padding:8px 12px}.phone{font-size:29px}}
 </style>
 
@@ -92,7 +97,7 @@ footer{padding:35px 0;text-align:center;color:#d9e6f5;background:#052e6c} footer
 <nav class="menu">
 <a href="#services">الخدمات</a>
 <a href="#faults">الأعطال</a>
-<a href="#gallery">الصور</a>
+<a href="#features">مميزاتنا</a>
 <a href="#location">الموقع</a>
 </nav>
 <a href="tel:+201037413349" class="call-header"><i class="fa-solid fa-phone"></i> 01037413349</a>
@@ -111,8 +116,10 @@ footer{padding:35px 0;text-align:center;color:#d9e6f5;background:#052e6c} footer
 <a href="https://wa.me/201037413349" target="_blank" class="btn btn-whatsapp"><i class="fa-brands fa-whatsapp"></i> واتساب</a>
 </div>
 </div>
-<div class="hero-image">
-<img src="https://images.unsplash.com/photo-1571175336557-48bba3270c5f?auto=format&fit=crop&w=800&q=80" alt="صيانة ثلاجات وأجهزة بوش">
+<div class="hero-visual">
+<i class="fa-solid fa-screwdriver-wrench"></i>
+<h3>خدمة فورية متخصصة لأجهزة بوش</h3>
+<p>دعم فني متكامل لجميع الأجهزة المنزلية بالمنزل</p>
 </div>
 </div>
 </section>
@@ -131,7 +138,11 @@ footer{padding:35px 0;text-align:center;color:#d9e6f5;background:#052e6c} footer
 
 <section>
 <div class="container split">
-<div class="split-image"><img src="https://images.unsplash.com/photo-1584854580396-981f9b128522?auto=format&fit=crop&w=800&q=80" alt="صيانة ثلاجات بوش"></div>
+<div class="split-visual">
+<i class="fa-solid fa-gears"></i>
+<h3>حلول هندسية دقيقة وأداء عالي</h3>
+<p>فحص شامل وكفاءة تشغيل مثالية لأجهزتك</p>
+</div>
 <div>
 <span class="badge">تشخيص دقيق واحترافي</span>
 <h2>خدمة صيانة فورية ومنزلية متخصصة لخط أجهزة بوش</h2>
@@ -161,15 +172,25 @@ footer{padding:35px 0;text-align:center;color:#d9e6f5;background:#052e6c} footer
 </div>
 </section>
 
-<section id="gallery">
+<section id="features">
 <div class="container">
-<div class="section-title"><h2>صور صيانة الأجهزة المنزلية</h2><p>جانب من أعمال فحص وإصلاح الغسالات، الثلاجات، الديب فريزر والميكرويف.</p></div>
-<div class="gallery">
-<div class="gallery-box g1"><img src="https://images.unsplash.com/photo-1571175336557-48bba3270c5f?auto=format&fit=crop&w=800&q=80" alt="صيانة ثلاجات بوش"></div>
-<div class="gallery-box g2"><img src="https://images.unsplash.com/photo-1626806787461-102c1bfaaea1?auto=format&fit=crop&w=800&q=80" alt="صيانة غسالات بوش"></div>
-<div class="gallery-box g3"><img src="https://images.unsplash.com/photo-1556911220-e15b29be8c8f?auto=format&fit=crop&w=800&q=80" alt="أجهزة المطبخ بوش"></div>
-<div class="gallery-box g4"><img src="https://images.unsplash.com/photo-1584854580396-981f9b128522?auto=format&fit=crop&w=800&q=80" alt="أجهزة منزلية بوش"></div>
-<div class="gallery-box g5"><img src="https://images.unsplash.com/photo-1574269909862-7e1d70bb8078?auto=format&fit=crop&w=800&q=80" alt="مركز صيانة بوش"></div>
+<div class="section-title"><h2>لماذا تختار مركز صيانة بوش؟</h2><p>نتميز بالسرعة والدقة والاحترافية في صيانة الأجهزة المنزلية.</p></div>
+<div class="features-grid">
+<div class="feature-box">
+<i class="fa-solid fa-bolt"></i>
+<h3>سرعة الاستجابة</h3>
+<p>وصول فني الصيانة لمنزلك في أسرع وقت ممكن لتلبيت بلاغات الأعطال.</p>
+</div>
+<div class="feature-box">
+<i class="fa-solid fa-screwdriver-wrench"></i>
+<h3>فحص بالمنزل</h3>
+<p>إصلاح الفحص المباشر للأجهزة بمكانها دون الحاجة لنقل الجهاز.</p>
+</div>
+<div class="feature-box">
+<i class="fa-solid fa-shield-halved"></i>
+<h3>ضمان دقيق</h3>
+<p>متابعة ودعم فني مستمر لضمان كفاءة تشغيل الأجهزة بعد الإصلاح.</p>
+</div>
 </div>
 </div>
 </section>
