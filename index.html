@@ -1,227 +1,221 @@
-from pathlib import Path
-import re, zipfile
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>صيانة بوش 01037413349 | مركز صيانة أجهزة بوش في مصر</title>
+<meta name="description" content="مركز صيانة بوش في مصر لخدمات إصلاح وصيانة الغسالات والثلاجات والأجهزة المنزلية. فحص وتشخيص دقيق بالمنزل. اتصل الآن 01037413349">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta name="theme-color" content="#073f92">
+<link rel="canonical" href="https://bosch-maintenance.vercel.app/">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 
-src = Path("/mnt/data/alaska_template.txt")
-out = Path("/mnt/data/index.html")
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:"Cairo",sans-serif;background:#f6faff;color:#13233c;line-height:1.8}
+a{text-decoration:none} img{width:100%;display:block}
+.container{width:92%;max-width:1180px;margin:auto}
+.top-bar{background:#052e6c;color:#fff;text-align:center;padding:7px 10px;font-size:14px;font-weight:700}
+header{background:rgba(255,255,255,.97);border-bottom:1px solid #dce8f4;position:sticky;top:0;z-index:9999;box-shadow:0 5px 20px rgba(0,40,90,.05)}
+.nav{min-height:74px;display:flex;justify-content:space-between;align-items:center;gap:20px}
+.logo{font-size:26px;font-weight:900;color:#073f92}
+.menu{display:flex;gap:22px} .menu a{color:#17233c;font-size:14px;font-weight:700}
+.call-header{background:#073f92;color:#fff;padding:10px 18px;border-radius:30px;font-weight:800}
+.hero{padding:65px 0 45px;background:radial-gradient(circle at top right,#e4f3ff,transparent 40%),#f8fcff}
+.hero-grid{display:grid;grid-template-columns:1fr 1fr;align-items:center;gap:45px}
+.badge{display:inline-block;background:#ddebff;color:#073f92;padding:6px 14px;border-radius:30px;font-size:14px;font-weight:800}
+.hero h1{font-size:clamp(40px,6vw,66px);line-height:1.18;margin:18px 0;color:#0b2344}
+.hero p{color:#617087;font-size:18px}
+.hero-buttons{display:flex;gap:12px;flex-wrap:wrap;margin-top:25px}
+.btn{display:inline-flex;justify-content:center;align-items:center;gap:8px;padding:12px 22px;border-radius:30px;font-weight:800}
+.btn-main{color:#fff;background:#073f92}
+.btn-whatsapp{color:#073f92;background:#fff;border:1px solid #bad4eb}
+.hero-image{border-radius:30px;overflow:hidden;box-shadow:0 25px 60px rgba(7,63,146,.16)}
+.hero-image img{aspect-ratio:4/3;object-fit:cover}
+section{padding:65px 0}
+.section-title{max-width:850px;text-align:center;margin:0 auto 35px}
+.section-title h2{font-size:clamp(30px,4vw,40px);color:#0b2344}
+.section-title p{color:#66758a}
+.services{display:grid;grid-template-columns:repeat(4,1fr);gap:17px}
+.service-card{background:#fff;border:1px solid #dce8f4;border-radius:20px;padding:23px;box-shadow:0 10px 30px rgba(15,60,100,.05)}
+.service-icon{width:52px;height:52px;display:grid;place-items:center;background:#e6f3ff;color:#073f92;border-radius:15px;font-size:22px;margin-bottom:15px}
+.service-card h3{font-size:19px;margin-bottom:7px} .service-card p{color:#68768a;font-size:14px}
+.split{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center}
+.split-image{border-radius:26px;overflow:hidden;box-shadow:0 20px 45px rgba(7,63,146,.14)}
+.split-image img{aspect-ratio:4/3;object-fit:cover}
+.split h2{font-size:38px;line-height:1.35;margin:15px 0} .split p{color:#66758a}
+.check-list{display:grid;gap:11px;margin-top:20px} .check{padding:13px 15px;background:#fff;border:1px solid #dce8f4;border-radius:13px}
+.faults{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+.fault{background:#fff;border:1px solid #dce8f4;padding:16px 18px;border-radius:15px;font-weight:700}
+.gallery{display:grid;grid-template-columns:repeat(12,1fr);gap:14px}
+.gallery-box{overflow:hidden;border-radius:20px;box-shadow:0 15px 38px rgba(7,63,146,.13)}
+.gallery-box img{height:100%;object-fit:cover}
+.g1{grid-column:span 7;height:380px} .g2{grid-column:span 5;height:380px}
+.g3,.g4,.g5{grid-column:span 4;height:280px}
+.contact-grid{display:grid;grid-template-columns:.9fr 1.1fr;gap:25px}
+.contact-box{background:linear-gradient(145deg,#052e6c,#0c66c7);color:#fff;border-radius:28px;padding:35px}
+.contact-box h2{font-size:36px;margin:13px 0}
+.phone{color:#fff;font-size:38px;font-weight:900;direction:ltr;display:block;margin:15px 0}
+.address{margin-top:22px;padding-top:18px;border-top:1px solid rgba(255,255,255,.2)}
+.map{overflow:hidden;border-radius:28px;box-shadow:0 16px 40px rgba(7,63,146,.12)}
+.map iframe{width:100%;height:100%;min-height:450px;border:0}
+details{max-width:900px;margin:12px auto;background:#fff;border:1px solid #dce8f4;border-radius:15px;padding:16px 18px}
+summary{cursor:pointer;font-weight:800} details p{color:#66758a;margin-top:8px}
+footer{padding:35px 0;text-align:center;color:#d9e6f5;background:#052e6c} footer strong{color:#fff;font-size:20px}
+.floating-call{position:fixed;bottom:20px;left:20px;z-index:9999;background:#073f92;color:#fff;width:62px;height:62px;border-radius:50%;display:grid;place-items:center;font-size:25px;box-shadow:0 10px 30px rgba(0,0,0,.25)}
+@media(max-width:900px){.hero-grid,.split,.contact-grid{grid-template-columns:1fr}.services{grid-template-columns:repeat(2,1fr)}.menu{display:none}.g1,.g2,.g3,.g4,.g5{grid-column:span 12;height:300px}}
+@media(max-width:550px){.services,.faults{grid-template-columns:1fr}.call-header{font-size:12px;padding:8px 12px}.phone{font-size:29px}}
+</style>
 
-html = src.read_text(encoding="utf-8")
-
-# ---------- SEO / head ----------
-html = re.sub(
-    r"<title>.*?</title>",
-    "<title>صيانة بوش 01037413349 | صيانة أجهزة Bosch بالقاهرة</title>",
-    html,
-    count=1,
-    flags=re.S,
-)
-html = re.sub(
-    r'<meta name="description" content=".*?">',
-    '<meta name="description" content="صيانة أجهزة بوش Bosch في القاهرة للثلاجات والغسالات وغسالات الأطباق والأفران. فحص وتشخيص الأعطال قبل الإصلاح. للتواصل 01037413349">',
-    html,
-    count=1,
-    flags=re.S,
-)
-# Remove old canonical until the final Vercel URL is known.
-html = re.sub(r'<link rel="canonical" href="[^"]+">\s*', '', html, count=1)
-
-# Brand palette
-replacements = {
-    "#073f92": "#d71920",
-    "#052e6c": "#20252b",
-    "#0c66c7": "#d71920",
-    "#e4f3ff": "#fff0f0",
-    "#f8fcff": "#fffafa",
-    "#ddebff": "#ffe5e5",
-    "#e6f3ff": "#ffeaea",
-    "#bad4eb": "#efb8b8",
-    "#0b2344": "#20252b",
-    "#d9e6f5": "#f1f1f1",
-}
-for a, b in replacements.items():
-    html = html.replace(a, b)
-
-# ---------- JSON-LD ----------
-schema = """<script type="application/ld+json">
+<script type="application/ld+json">
 {
   "@context":"https://schema.org",
   "@type":"HomeAndConstructionBusiness",
-  "@id":"#business",
-  "name":"توكيل صيانة بوش",
-  "alternateName":"صيانة أجهزة بوش",
+  "@id":"https://bosch-maintenance.vercel.app/#business",
+  "name":"مركز صيانة بوش",
+  "url":"https://bosch-maintenance.vercel.app/",
   "telephone":"+201037413349",
-  "description":"خدمات فحص وصيانة أجهزة بوش Bosch في القاهرة للثلاجات والغسالات وغسالات الأطباق والأفران.",
-  "address":{
-    "@type":"PostalAddress",
-    "streetAddress":"عمارات العبور، خلف حدائق العبور، منشية البكري",
-    "addressLocality":"مصر الجديدة",
-    "addressRegion":"القاهرة",
-    "postalCode":"4460006",
-    "addressCountry":"EG"
-  },
-  "geo":{
-    "@type":"GeoCoordinates",
-    "latitude":30.0766397,
-    "longitude":31.3076291
-  }
+  "description":"خدمات صيانة أجهزة بوش المنزلية.",
+  "address":{"@type":"PostalAddress","streetAddress":"عمارات العبور، خلف حدائق العبور، منشية البكري","addressLocality":"القاهرة","addressRegion":"القاهرة","addressCountry":"EG"},
+  "geo":{"@type":"GeoCoordinates","latitude":30.0766397,"longitude":31.3076291}
 }
-</script>"""
-html = re.sub(
-    r'<script type="application/ld\+json">.*?</script>',
-    schema,
-    html,
-    count=1,
-    flags=re.S,
-)
+</script>
+</head>
 
-# ---------- Global contact replacements ----------
-html = html.replace("01028729110", "01037413349")
-html = html.replace("+201028729110", "+201037413349")
-html = html.replace("201028729110", "201037413349")
+<body>
+<div class="top-bar">مركز صيانة بوش الرئيسي — 01037413349</div>
 
-# ---------- Header / hero ----------
-html = html.replace(
-    '<div class="top-bar">صيانة ثلاجات وديب فريزر ألاسكا — 01037413349</div>',
-    '<div class="top-bar">صيانة أجهزة بوش Bosch بالقاهرة — 01037413349</div>'
-)
-html = html.replace(
-    '<a href="#home" class="logo">صيانة ألاسكا</a>',
-    '<a href="#home" class="logo"><span style="color:#d71920">BOSCH</span> | صيانة بوش</a>'
-)
-html = html.replace(
-    '<span class="badge">ثلاجات • ديب فريزر</span>',
-    '<span class="badge">ثلاجات • غسالات • غسالات أطباق • أفران</span>'
-)
-html = html.replace(
-    '<h1>صيانة ألاسكا للثلاجات والديب فريزر</h1>',
-    '<h1>صيانة أجهزة بوش Bosch بالقاهرة</h1>'
-)
-html = html.replace(
-    '<p>خدمات فحص وتشخيص أعطال أجهزة التبريد ألاسكا، مع تحديد سبب المشكلة قبل الإصلاح سواء كان العطل ضعف تبريد، توقف تجميد، تراكم ثلج، تسريب مياه أو صوت غير طبيعي.</p>',
-    '<p>خدمات فحص وتشخيص أعطال أجهزة بوش المنزلية، مع تحديد سبب المشكلة قبل الإصلاح للثلاجات والغسالات وغسالات الأطباق والأفران، والتعامل مع الأعطال الكهربائية والميكانيكية وأعطال التشغيل الشائعة.</p>'
-)
+<header>
+<div class="container nav">
+<a href="#home" class="logo">صيانة بوش</a>
+<nav class="menu">
+<a href="#services">الخدمات</a>
+<a href="#faults">الأعطال</a>
+<a href="#gallery">الصور</a>
+<a href="#location">الموقع</a>
+</nav>
+<a href="tel:+201037413349" class="call-header"><i class="fa-solid fa-phone"></i> 01037413349</a>
+</div>
+</header>
 
-# ---------- Services ----------
-old_services = re.search(
-    r'<section id="services">.*?</section>',
-    html,
-    flags=re.S
-)
-new_services = """<section id="services">
+<main id="home">
+<section class="hero">
+<div class="container hero-grid">
+<div>
+<span class="badge">غسالات • ثلاجات • بوتاجازات</span>
+<h1>توكيل صيانة بوش للأجهزة المنزلية</h1>
+<p>خدمات فحص وتشخيص أعطال أجهزة بوش المنزلية، مع تحديد سبب المشكلة بدقة واحترافية عالية لضمان أفضل كفاءة تشغيل.</p>
+<div class="hero-buttons">
+<a href="tel:+201037413349" class="btn btn-main"><i class="fa-solid fa-phone"></i> اتصال 01037413349</a>
+<a href="https://wa.me/201037413349" target="_blank" class="btn btn-whatsapp"><i class="fa-brands fa-whatsapp"></i> واتساب</a>
+</div>
+</div>
+<div class="hero-image">
+<img src="banner.jpg" alt="صيانة أجهزة بوش">
+</div>
+</div>
+</section>
+
+<section id="services">
 <div class="container">
-<div class="section-title"><h2>خدمات صيانة أجهزة بوش</h2><p>فحص وتشخيص وصيانة أجهزة Bosch المنزلية في القاهرة.</p></div>
+<div class="section-title"><h2>خدمات صيانة بوش</h2><p>خدمات متخصصة لكافة أجهزة بوش المنزلية.</p></div>
 <div class="services">
-<div class="service-card"><div class="service-icon"><i class="fa-solid fa-snowflake"></i></div><h3>صيانة ثلاجات بوش</h3><p>فحص ضعف التبريد، تراكم الثلج، التسريب، الحساسات، المروحة ودورة التبريد.</p></div>
-<div class="service-card"><div class="service-icon"><i class="fa-solid fa-shirt"></i></div><h3>صيانة غسالات بوش</h3><p>فحص عدم العصر أو التصريف، التسريب، الاهتزاز، الموتور وطلمبة الصرف ولوحة التحكم.</p></div>
-<div class="service-card"><div class="service-icon"><i class="fa-solid fa-water"></i></div><h3>صيانة غسالات أطباق بوش</h3><p>فحص مشاكل سحب وتصريف المياه، ضعف التنظيف، التسريب والتوقف أثناء البرنامج.</p></div>
-<div class="service-card"><div class="service-icon"><i class="fa-solid fa-fire-burner"></i></div><h3>صيانة أفران وبوتاجازات بوش</h3><p>فحص مشاكل التسخين، الإشعال، الحرارة، الحساسات ومكونات التشغيل.</p></div>
+<div class="service-card"><div class="service-icon"><i class="fa-solid fa-screwdriver-wrench"></i></div><h3>صيانة ثلاجات بوش</h3><p>فحص نظام التبريد والمروحة والحساسات ونظام إذابة الثلج بدقة عالية.</p></div>
+<div class="service-card"><div class="service-icon"><i class="fa-solid fa-gear"></i></div><h3>صيانة غسالات بوش</h3><p>معالجة أعطال العصر، الصرف، الاهتزاز، ومشاكل لوحة التحكم.</p></div>
+<div class="service-card"><div class="service-icon"><i class="fa-solid fa-magnifying-glass"></i></div><h3>فحص وتشخيص الأعطال</h3><p>تحديد سبب المشكلة قبل تغيير أي مكون أو اتخاذ قرار الإصلاح.</p></div>
+<div class="service-card"><div class="service-icon"><i class="fa-solid fa-house"></i></div><h3>صيانة منزلية</h3><p>فحص وإصلاح الأعطال في موقع الجهاز بالمنزل لتوفير الوقت والجهد.</p></div>
 </div>
 </div>
-</section>"""
-if old_services:
-    html = html[:old_services.start()] + new_services + html[old_services.end():]
+</section>
 
-# ---------- Diagnostic split ----------
-html = html.replace(
-    '<span class="badge">تشخيص قبل الإصلاح</span>\n<h2>ضعف التبريد لا يعني دائمًا شحن غاز التبريد</h2>\n<p>يتم فحص المروحة، الحساسات، الثرموستات، نظام إذابة الثلج ودورة التبريد قبل تحديد سبب المشكلة.</p>\n<div class="check-list">\n<div class="check"><strong>ضعف التبريد:</strong> فحص دورة التشغيل وتدفق الهواء.</div>\n<div class="check"><strong>تراكم الثلج:</strong> فحص نظام إذابة الثلج والحساسات.</div>\n<div class="check"><strong>التشغيل المستمر:</strong> فحص جوان الباب والثرموستات ودورة التبريد.</div>',
-    '<span class="badge">تشخيص قبل الإصلاح</span>\n<h2>تحديد سبب عطل جهاز بوش قبل تغيير أي قطعة</h2>\n<p>يتم فحص الجهاز خطوة بخطوة وتحديد المكون المسبب للعطل قبل تنفيذ الإصلاح أو استبدال أي جزء.</p>\n<div class="check-list">\n<div class="check"><strong>الثلاجات:</strong> فحص التبريد، الحساسات، المروحة ونظام إذابة الثلج.</div>\n<div class="check"><strong>الغسالات:</strong> فحص الموتور، الصرف، دخول المياه، السخان ولوحة التحكم.</div>\n<div class="check"><strong>غسالات الأطباق والأفران:</strong> فحص دورة التشغيل والتسخين والحساسات ومصادر الأعطال.</div>'
-)
+<section>
+<div class="container split">
+<div class="split-image"><img src="banner.jpg" alt="فني صيانة بوش"></div>
+<div>
+<span class="badge">تشخيص دقيق واحترافي</span>
+<h2>خدمة صيانة فورية ومنزلية معتمدة لأجهزة بوش</h2>
+<p>نحرص على توفير فنيين متخصصين لفحص أجهزتك بأحدث أجهزة التقييم والتشخيص.</p>
+<div class="check-list">
+<div class="check"><strong>فحص شامل:</strong> الكشف الكامل على كافة الدوائر والمكونات.</div>
+<div class="check"><strong>قطع غيار مطابقة:</strong> حلول هندسية دقيقة تحافظ على عمر الجهاز.</div>
+<div class="check"><strong>سرعة الاستجابة:</strong> تلبية بلاغات الصيانة في أسرع وقت ممكن.</div>
+</div>
+</div>
+</div>
+</section>
 
-# ---------- Faults ----------
-faults_match = re.search(r'<section id="faults">.*?</section>', html, flags=re.S)
-new_faults = """<section id="faults">
+<section id="faults">
 <div class="container">
-<div class="section-title"><h2>أشهر أعطال أجهزة بوش</h2><p>أعراض شائعة تستدعي فحص الجهاز وتحديد سبب المشكلة.</p></div>
+<div class="section-title"><h2>أشهر أعطال أجهزة بوش</h2><p>الأعراض الأكثر شيوعًا في الثلاجات والغسالات.</p></div>
 <div class="faults">
-<div class="fault">ثلاجة بوش لا تبرد بالشكل المطلوب</div>
-<div class="fault">تراكم الثلج أو تسريب المياه من الثلاجة</div>
+<div class="fault">ثلاجة بوش لا تبرد</div>
+<div class="fault">تراكم الثلج في فريزر بوش</div>
 <div class="fault">غسالة بوش لا تعصر</div>
-<div class="fault">الغسالة لا تسحب أو لا تصرف المياه</div>
-<div class="fault">اهتزاز أو صوت غير طبيعي أثناء التشغيل</div>
-<div class="fault">غسالة أطباق بوش لا تنظف جيدًا</div>
-<div class="fault">غسالة الأطباق لا تصرف المياه</div>
-<div class="fault">الفرن لا يسخن أو الحرارة غير منتظمة</div>
-<div class="fault">الجهاز يتوقف أثناء البرنامج</div>
-<div class="fault">ظهور رمز خطأ أو عدم استجابة لوحة التحكم</div>
+<div class="fault">توقف الغسالة أثناء الدورة</div>
+<div class="fault">تسريب مياه من الغسالة أو الثلاجة</div>
+<div class="fault">صدور صوت غير طبيعي أثناء التشغيل</div>
+<div class="fault">عطل في لوحة التحكم أو اللوحة الإلكترونية</div>
+<div class="fault">عدم فتح باب الغسالة بعد انتهاء البرنامج</div>
 </div>
 </div>
-</section>"""
-if faults_match:
-    html = html[:faults_match.start()] + new_faults + html[faults_match.end():]
+</section>
 
-# ---------- Gallery heading ----------
-html = html.replace(
-    '<div class="section-title"><h2>صور صيانة ألاسكا</h2><p>صور الثلاجات والديب فريزر وخدمات الصيانة.</p></div>',
-    '<div class="section-title"><h2>صيانة أجهزة بوش</h2><p>خدمات فحص وصيانة الأجهزة المنزلية ومتابعة الأعطال الشائعة.</p></div>'
-)
+<section id="gallery">
+<div class="container">
+<div class="section-title"><h2>صور صيانة بوش</h2><p>جانب من مراكز الخدمة وأعمال الإصلاح والفلترة.</p></div>
+<div class="gallery">
+<div class="gallery-box g1"><img src="banner.jpg" alt="صيانة بوش"></div>
+<div class="gallery-box g2"><img src="banner.jpg" alt="أجهزة بوش"></div>
+<div class="gallery-box g3"><img src="banner.jpg" alt="تصليح بوش"></div>
+<div class="gallery-box g4"><img src="banner.jpg" alt="دعم بوش الفني"></div>
+<div class="gallery-box g5"><img src="banner.jpg" alt="مركز صيانة بوش"></div>
+</div>
+</div>
+</section>
 
-# Add accessible alt text to embedded images
-html = html.replace('<div class="hero-image">\n<img src="data:image', '<div class="hero-image">\n<img alt="صيانة أجهزة بوش المنزلية" src="data:image', 1)
-html = html.replace('<div class="split-image"><img src="data:image', '<div class="split-image"><img alt="فحص وتشخيص أعطال أجهزة بوش" src="data:image', 1)
-for cls, alt in [
-    ("g1", "صيانة أجهزة بوش"),
-    ("g2", "فحص أجهزة Bosch"),
-    ("g3", "صيانة ثلاجات بوش"),
-    ("g4", "صيانة غسالات بوش"),
-    ("g5", "خدمات صيانة Bosch"),
-]:
-    html = html.replace(
-        f'<div class="gallery-box {cls}"><img src="data:image',
-        f'<div class="gallery-box {cls}"><img alt="{alt}" src="data:image',
-        1
-    )
+<section id="location">
+<div class="container contact-grid">
+<div class="contact-box">
+<span class="badge" style="background:white;color:#073f92">تواصل معنا</span>
+<h2>طلب صيانة بوش</h2>
+<p>للاستفسار أو طلبات الصيانة السريعة، تواصل معنا عبر الهاتف أو الواتساب.</p>
+<a href="tel:+201037413349" class="phone">01037413349</a>
+<div class="hero-buttons">
+<a href="tel:+201037413349" class="btn btn-whatsapp">اتصال</a>
+<a href="https://wa.me/201037413349" target="_blank" class="btn btn-whatsapp">واتساب</a>
+</div>
+<div class="address"><strong>العنوان:</strong><br>عمارات العبور، خلف حدائق العبور، منشية البكري، قسم مصر الجديدة، محافظة القاهرة 4460006</div>
+</div>
 
-# ---------- Location / contact ----------
-html = html.replace(
-    '<span class="badge" style="background:white;color:#d71920">تواصل معنا</span>\n<h2>طلب صيانة ألاسكا</h2>\n<p>للاستفسار عن صيانة الثلاجات أو الديب فريزر يمكنك التواصل عبر الهاتف أو واتساب.</p>',
-    '<span class="badge" style="background:white;color:#d71920">تواصل معنا</span>\n<h2>طلب صيانة أجهزة بوش</h2>\n<p>للاستفسار عن فحص وصيانة أجهزة بوش المنزلية يمكنك التواصل عبر الهاتف أو واتساب.</p>'
-)
-html = html.replace(
-    '<div class="address"><strong>العنوان:</strong><br>11 Ahmed Heshmat St,<br>Mohammed Mazhar,<br>Zamalek,<br>Cairo</div>',
-    '<div class="address"><strong>العنوان:</strong><br>عمارات العبور، خلف حدائق العبور، منشية البكري،<br>قسم مصر الجديدة، محافظة القاهرة 4460006</div>'
-)
+<div class="map">
+<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3452.612510955121!2d31.307629100000003!3d30.076639699999994!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14583f0075d95b31%3A0x58cc6c1238296760!2z2KrZiNmD2YrZhCDYtdmK2KfZhtmHINio2YjYtA!5e0!3m2!1sar!2seg!4v1788960319645!5m2!1sar!2seg" allowfullscreen="" loading="lazy" referrerpolicy="strict-origin-when-cross-origin"></iframe>
+</div>
+</div>
+</section>
 
-map_src = ('https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3452.612510955121!'
-           '2d31.307629100000003!3d30.076639699999994!2m3!1f0!2f0!3f0!3m2!'
-           '1i1024!2i768!4f13.1!3m3!1m2!1s0x14583f0075d95b31%3A0x58cc6c1238296760!'
-           '2z2KrZiNmD2YrZhCDYtdmK2KfZhtmHINio2YjYtA!5e0!3m2!1sar!2seg!'
-           '4v1788958735075!5m2!1sar!2seg')
-html = re.sub(
-    r'<iframe src="https://www\.google\.com/maps/embed\?pb=[^"]+"',
-    f'<iframe title="موقع توكيل صيانة بوش على الخريطة" src="{map_src}"',
-    html,
-    count=1
-)
-
-# ---------- FAQ ----------
-faq_match = re.search(
-    r'<section>\s*<div class="container">\s*<div class="section-title"><h2>الأسئلة الشائعة حول صيانة ألاسكا</h2>.*?</section>',
-    html,
-    flags=re.S
-)
-new_faq = """<section>
+<section>
 <div class="container">
 <div class="section-title"><h2>الأسئلة الشائعة حول صيانة بوش</h2></div>
-<details><summary>متى يحتاج جهاز بوش إلى فحص فني؟</summary><p>عند توقف الجهاز، ضعف الأداء، ظهور رمز خطأ، تسريب المياه، الأصوات غير الطبيعية أو تكرار العطل أثناء التشغيل.</p></details>
-<details><summary>هل يتم تحديد سبب العطل قبل تغيير القطع؟</summary><p>نعم، الهدف من الفحص هو تحديد مصدر المشكلة أولًا قبل اتخاذ قرار الإصلاح أو استبدال أي مكون.</p></details>
-<details><summary>ما الأجهزة التي تشملها خدمات الصيانة؟</summary><p>تشمل الصفحة خدمات فحص وصيانة الثلاجات والغسالات وغسالات الأطباق والأفران من بوش.</p></details>
-<details><summary>كيف أتواصل لطلب الصيانة؟</summary><p>يمكن التواصل على الرقم 01037413349 أو عبر زر واتساب الموجود في الصفحة.</p></details>
+<details><summary>ما هي الأجهزة التي يشملها مركز صيانة بوش؟</summary><p>نقدم خدمات الصيانة الشاملة لثلاجات، غسالات، وبوتاجازات بوش.</p></details>
+<details><summary>هل تتم الصيانة في المنزل؟</summary><p>نعم، تتم معظم أعمال الفحص والإصلاح الفوري بالمنزل لراحة العميل.</p></details>
+<details><summary>كيف يمكنني طلب الصيانة؟</summary><p>يمكنك الاتصال مباشرة على رقم الخط الساخن 01037413349 أو عبر الواتساب.</p></details>
 </div>
-</section>"""
-if faq_match:
-    html = html[:faq_match.start()] + new_faq + html[faq_match.end():]
+</section>
+</main>
 
-# ---------- Footer ----------
-html = html.replace(
-    '<strong>صيانة ألاسكا</strong><br>\nثلاجات وديب فريزر<br>\n01037413349',
-    '<strong>صيانة أجهزة بوش</strong><br>\nثلاجات • غسالات • غسالات أطباق • أفران<br>\n01037413349'
-)
-html = html.replace('aria-label="اتصل بصيانة ألاسكا"', 'aria-label="اتصل بصيانة بوش"')
+<footer>
+<div class="container" style="display:block">
+<strong>مركز صيانة بوش</strong><br>
+خدمة صيانة الأجهزة المنزلية<br>
+01037413349<br><br>
+<small>موقع لخدمات الصيانة المستقلة ولا يدعي أنه الوكيل الحصري أو الرسمي للشركة المصنعة.</small>
+</div>
+</footer>
 
-# Any remaining old brand occurrences
-html = html.replace("ألاسكا", "بوش")
-html = html.replace("Alaska", "Bosch")
-
-# Make disclaimer more explicit
-html = html.replace(
-    "موقع لخدمات الصيانة ولا يدعي أنه الموقع الرسمي للشركة المصنعة.",
-    "موقع لخدمات صيانة مستقلة ولا يدعي أنه الموقع الرسمي
+<a href="tel:+201037413349" class="floating-call" aria-label="اتصل بصيانة بوش"><i class="fa-solid fa-phone"></i></a>
+</body>
+</html>
