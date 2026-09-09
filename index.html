@@ -1,0 +1,227 @@
+from pathlib import Path
+import re, zipfile
+
+src = Path("/mnt/data/alaska_template.txt")
+out = Path("/mnt/data/index.html")
+
+html = src.read_text(encoding="utf-8")
+
+# ---------- SEO / head ----------
+html = re.sub(
+    r"<title>.*?</title>",
+    "<title>صيانة بوش 01037413349 | صيانة أجهزة Bosch بالقاهرة</title>",
+    html,
+    count=1,
+    flags=re.S,
+)
+html = re.sub(
+    r'<meta name="description" content=".*?">',
+    '<meta name="description" content="صيانة أجهزة بوش Bosch في القاهرة للثلاجات والغسالات وغسالات الأطباق والأفران. فحص وتشخيص الأعطال قبل الإصلاح. للتواصل 01037413349">',
+    html,
+    count=1,
+    flags=re.S,
+)
+# Remove old canonical until the final Vercel URL is known.
+html = re.sub(r'<link rel="canonical" href="[^"]+">\s*', '', html, count=1)
+
+# Brand palette
+replacements = {
+    "#073f92": "#d71920",
+    "#052e6c": "#20252b",
+    "#0c66c7": "#d71920",
+    "#e4f3ff": "#fff0f0",
+    "#f8fcff": "#fffafa",
+    "#ddebff": "#ffe5e5",
+    "#e6f3ff": "#ffeaea",
+    "#bad4eb": "#efb8b8",
+    "#0b2344": "#20252b",
+    "#d9e6f5": "#f1f1f1",
+}
+for a, b in replacements.items():
+    html = html.replace(a, b)
+
+# ---------- JSON-LD ----------
+schema = """<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"HomeAndConstructionBusiness",
+  "@id":"#business",
+  "name":"توكيل صيانة بوش",
+  "alternateName":"صيانة أجهزة بوش",
+  "telephone":"+201037413349",
+  "description":"خدمات فحص وصيانة أجهزة بوش Bosch في القاهرة للثلاجات والغسالات وغسالات الأطباق والأفران.",
+  "address":{
+    "@type":"PostalAddress",
+    "streetAddress":"عمارات العبور، خلف حدائق العبور، منشية البكري",
+    "addressLocality":"مصر الجديدة",
+    "addressRegion":"القاهرة",
+    "postalCode":"4460006",
+    "addressCountry":"EG"
+  },
+  "geo":{
+    "@type":"GeoCoordinates",
+    "latitude":30.0766397,
+    "longitude":31.3076291
+  }
+}
+</script>"""
+html = re.sub(
+    r'<script type="application/ld\+json">.*?</script>',
+    schema,
+    html,
+    count=1,
+    flags=re.S,
+)
+
+# ---------- Global contact replacements ----------
+html = html.replace("01028729110", "01037413349")
+html = html.replace("+201028729110", "+201037413349")
+html = html.replace("201028729110", "201037413349")
+
+# ---------- Header / hero ----------
+html = html.replace(
+    '<div class="top-bar">صيانة ثلاجات وديب فريزر ألاسكا — 01037413349</div>',
+    '<div class="top-bar">صيانة أجهزة بوش Bosch بالقاهرة — 01037413349</div>'
+)
+html = html.replace(
+    '<a href="#home" class="logo">صيانة ألاسكا</a>',
+    '<a href="#home" class="logo"><span style="color:#d71920">BOSCH</span> | صيانة بوش</a>'
+)
+html = html.replace(
+    '<span class="badge">ثلاجات • ديب فريزر</span>',
+    '<span class="badge">ثلاجات • غسالات • غسالات أطباق • أفران</span>'
+)
+html = html.replace(
+    '<h1>صيانة ألاسكا للثلاجات والديب فريزر</h1>',
+    '<h1>صيانة أجهزة بوش Bosch بالقاهرة</h1>'
+)
+html = html.replace(
+    '<p>خدمات فحص وتشخيص أعطال أجهزة التبريد ألاسكا، مع تحديد سبب المشكلة قبل الإصلاح سواء كان العطل ضعف تبريد، توقف تجميد، تراكم ثلج، تسريب مياه أو صوت غير طبيعي.</p>',
+    '<p>خدمات فحص وتشخيص أعطال أجهزة بوش المنزلية، مع تحديد سبب المشكلة قبل الإصلاح للثلاجات والغسالات وغسالات الأطباق والأفران، والتعامل مع الأعطال الكهربائية والميكانيكية وأعطال التشغيل الشائعة.</p>'
+)
+
+# ---------- Services ----------
+old_services = re.search(
+    r'<section id="services">.*?</section>',
+    html,
+    flags=re.S
+)
+new_services = """<section id="services">
+<div class="container">
+<div class="section-title"><h2>خدمات صيانة أجهزة بوش</h2><p>فحص وتشخيص وصيانة أجهزة Bosch المنزلية في القاهرة.</p></div>
+<div class="services">
+<div class="service-card"><div class="service-icon"><i class="fa-solid fa-snowflake"></i></div><h3>صيانة ثلاجات بوش</h3><p>فحص ضعف التبريد، تراكم الثلج، التسريب، الحساسات، المروحة ودورة التبريد.</p></div>
+<div class="service-card"><div class="service-icon"><i class="fa-solid fa-shirt"></i></div><h3>صيانة غسالات بوش</h3><p>فحص عدم العصر أو التصريف، التسريب، الاهتزاز، الموتور وطلمبة الصرف ولوحة التحكم.</p></div>
+<div class="service-card"><div class="service-icon"><i class="fa-solid fa-water"></i></div><h3>صيانة غسالات أطباق بوش</h3><p>فحص مشاكل سحب وتصريف المياه، ضعف التنظيف، التسريب والتوقف أثناء البرنامج.</p></div>
+<div class="service-card"><div class="service-icon"><i class="fa-solid fa-fire-burner"></i></div><h3>صيانة أفران وبوتاجازات بوش</h3><p>فحص مشاكل التسخين، الإشعال، الحرارة، الحساسات ومكونات التشغيل.</p></div>
+</div>
+</div>
+</section>"""
+if old_services:
+    html = html[:old_services.start()] + new_services + html[old_services.end():]
+
+# ---------- Diagnostic split ----------
+html = html.replace(
+    '<span class="badge">تشخيص قبل الإصلاح</span>\n<h2>ضعف التبريد لا يعني دائمًا شحن غاز التبريد</h2>\n<p>يتم فحص المروحة، الحساسات، الثرموستات، نظام إذابة الثلج ودورة التبريد قبل تحديد سبب المشكلة.</p>\n<div class="check-list">\n<div class="check"><strong>ضعف التبريد:</strong> فحص دورة التشغيل وتدفق الهواء.</div>\n<div class="check"><strong>تراكم الثلج:</strong> فحص نظام إذابة الثلج والحساسات.</div>\n<div class="check"><strong>التشغيل المستمر:</strong> فحص جوان الباب والثرموستات ودورة التبريد.</div>',
+    '<span class="badge">تشخيص قبل الإصلاح</span>\n<h2>تحديد سبب عطل جهاز بوش قبل تغيير أي قطعة</h2>\n<p>يتم فحص الجهاز خطوة بخطوة وتحديد المكون المسبب للعطل قبل تنفيذ الإصلاح أو استبدال أي جزء.</p>\n<div class="check-list">\n<div class="check"><strong>الثلاجات:</strong> فحص التبريد، الحساسات، المروحة ونظام إذابة الثلج.</div>\n<div class="check"><strong>الغسالات:</strong> فحص الموتور، الصرف، دخول المياه، السخان ولوحة التحكم.</div>\n<div class="check"><strong>غسالات الأطباق والأفران:</strong> فحص دورة التشغيل والتسخين والحساسات ومصادر الأعطال.</div>'
+)
+
+# ---------- Faults ----------
+faults_match = re.search(r'<section id="faults">.*?</section>', html, flags=re.S)
+new_faults = """<section id="faults">
+<div class="container">
+<div class="section-title"><h2>أشهر أعطال أجهزة بوش</h2><p>أعراض شائعة تستدعي فحص الجهاز وتحديد سبب المشكلة.</p></div>
+<div class="faults">
+<div class="fault">ثلاجة بوش لا تبرد بالشكل المطلوب</div>
+<div class="fault">تراكم الثلج أو تسريب المياه من الثلاجة</div>
+<div class="fault">غسالة بوش لا تعصر</div>
+<div class="fault">الغسالة لا تسحب أو لا تصرف المياه</div>
+<div class="fault">اهتزاز أو صوت غير طبيعي أثناء التشغيل</div>
+<div class="fault">غسالة أطباق بوش لا تنظف جيدًا</div>
+<div class="fault">غسالة الأطباق لا تصرف المياه</div>
+<div class="fault">الفرن لا يسخن أو الحرارة غير منتظمة</div>
+<div class="fault">الجهاز يتوقف أثناء البرنامج</div>
+<div class="fault">ظهور رمز خطأ أو عدم استجابة لوحة التحكم</div>
+</div>
+</div>
+</section>"""
+if faults_match:
+    html = html[:faults_match.start()] + new_faults + html[faults_match.end():]
+
+# ---------- Gallery heading ----------
+html = html.replace(
+    '<div class="section-title"><h2>صور صيانة ألاسكا</h2><p>صور الثلاجات والديب فريزر وخدمات الصيانة.</p></div>',
+    '<div class="section-title"><h2>صيانة أجهزة بوش</h2><p>خدمات فحص وصيانة الأجهزة المنزلية ومتابعة الأعطال الشائعة.</p></div>'
+)
+
+# Add accessible alt text to embedded images
+html = html.replace('<div class="hero-image">\n<img src="data:image', '<div class="hero-image">\n<img alt="صيانة أجهزة بوش المنزلية" src="data:image', 1)
+html = html.replace('<div class="split-image"><img src="data:image', '<div class="split-image"><img alt="فحص وتشخيص أعطال أجهزة بوش" src="data:image', 1)
+for cls, alt in [
+    ("g1", "صيانة أجهزة بوش"),
+    ("g2", "فحص أجهزة Bosch"),
+    ("g3", "صيانة ثلاجات بوش"),
+    ("g4", "صيانة غسالات بوش"),
+    ("g5", "خدمات صيانة Bosch"),
+]:
+    html = html.replace(
+        f'<div class="gallery-box {cls}"><img src="data:image',
+        f'<div class="gallery-box {cls}"><img alt="{alt}" src="data:image',
+        1
+    )
+
+# ---------- Location / contact ----------
+html = html.replace(
+    '<span class="badge" style="background:white;color:#d71920">تواصل معنا</span>\n<h2>طلب صيانة ألاسكا</h2>\n<p>للاستفسار عن صيانة الثلاجات أو الديب فريزر يمكنك التواصل عبر الهاتف أو واتساب.</p>',
+    '<span class="badge" style="background:white;color:#d71920">تواصل معنا</span>\n<h2>طلب صيانة أجهزة بوش</h2>\n<p>للاستفسار عن فحص وصيانة أجهزة بوش المنزلية يمكنك التواصل عبر الهاتف أو واتساب.</p>'
+)
+html = html.replace(
+    '<div class="address"><strong>العنوان:</strong><br>11 Ahmed Heshmat St,<br>Mohammed Mazhar,<br>Zamalek,<br>Cairo</div>',
+    '<div class="address"><strong>العنوان:</strong><br>عمارات العبور، خلف حدائق العبور، منشية البكري،<br>قسم مصر الجديدة، محافظة القاهرة 4460006</div>'
+)
+
+map_src = ('https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3452.612510955121!'
+           '2d31.307629100000003!3d30.076639699999994!2m3!1f0!2f0!3f0!3m2!'
+           '1i1024!2i768!4f13.1!3m3!1m2!1s0x14583f0075d95b31%3A0x58cc6c1238296760!'
+           '2z2KrZiNmD2YrZhCDYtdmK2KfZhtmHINio2YjYtA!5e0!3m2!1sar!2seg!'
+           '4v1788958735075!5m2!1sar!2seg')
+html = re.sub(
+    r'<iframe src="https://www\.google\.com/maps/embed\?pb=[^"]+"',
+    f'<iframe title="موقع توكيل صيانة بوش على الخريطة" src="{map_src}"',
+    html,
+    count=1
+)
+
+# ---------- FAQ ----------
+faq_match = re.search(
+    r'<section>\s*<div class="container">\s*<div class="section-title"><h2>الأسئلة الشائعة حول صيانة ألاسكا</h2>.*?</section>',
+    html,
+    flags=re.S
+)
+new_faq = """<section>
+<div class="container">
+<div class="section-title"><h2>الأسئلة الشائعة حول صيانة بوش</h2></div>
+<details><summary>متى يحتاج جهاز بوش إلى فحص فني؟</summary><p>عند توقف الجهاز، ضعف الأداء، ظهور رمز خطأ، تسريب المياه، الأصوات غير الطبيعية أو تكرار العطل أثناء التشغيل.</p></details>
+<details><summary>هل يتم تحديد سبب العطل قبل تغيير القطع؟</summary><p>نعم، الهدف من الفحص هو تحديد مصدر المشكلة أولًا قبل اتخاذ قرار الإصلاح أو استبدال أي مكون.</p></details>
+<details><summary>ما الأجهزة التي تشملها خدمات الصيانة؟</summary><p>تشمل الصفحة خدمات فحص وصيانة الثلاجات والغسالات وغسالات الأطباق والأفران من بوش.</p></details>
+<details><summary>كيف أتواصل لطلب الصيانة؟</summary><p>يمكن التواصل على الرقم 01037413349 أو عبر زر واتساب الموجود في الصفحة.</p></details>
+</div>
+</section>"""
+if faq_match:
+    html = html[:faq_match.start()] + new_faq + html[faq_match.end():]
+
+# ---------- Footer ----------
+html = html.replace(
+    '<strong>صيانة ألاسكا</strong><br>\nثلاجات وديب فريزر<br>\n01037413349',
+    '<strong>صيانة أجهزة بوش</strong><br>\nثلاجات • غسالات • غسالات أطباق • أفران<br>\n01037413349'
+)
+html = html.replace('aria-label="اتصل بصيانة ألاسكا"', 'aria-label="اتصل بصيانة بوش"')
+
+# Any remaining old brand occurrences
+html = html.replace("ألاسكا", "بوش")
+html = html.replace("Alaska", "Bosch")
+
+# Make disclaimer more explicit
+html = html.replace(
+    "موقع لخدمات الصيانة ولا يدعي أنه الموقع الرسمي للشركة المصنعة.",
+    "موقع لخدمات صيانة مستقلة ولا يدعي أنه الموقع الرسمي
